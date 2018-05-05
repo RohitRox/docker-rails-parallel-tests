@@ -1,0 +1,5 @@
+{
+  "name": "docker-rails-parallel-tests",
+  "private": true,
+  "dependencies": {}
+}
