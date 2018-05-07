@@ -1,0 +1,4 @@
+spec/feature
+spec/models/micropost_spec.rb
+spec/models/relationship_spec.rb
+spec/models/user_spec.rb

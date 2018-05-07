@@ -1,0 +1,1 @@
+./bin/parallel -j4 --no-notice -X ./docker/docker-spec-run.sh :::: ./docker/parallel-specs.tsv
