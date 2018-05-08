@@ -9,7 +9,9 @@ console:
 ssh:
 	docker-compose run --rm app /bin/bash
 setup:
-	docker-compose build
+	make build
+	make dbsetup
+dbsetup:
 	docker-compose run --rm app rake db:setup
 	docker-compose run --rm app rake db:test:prepare
 specs:
