@@ -13,4 +13,6 @@ setup:
 	docker-compose run --rm app rake db:setup
 	docker-compose run --rm app rake db:test:prepare
 specs:
-	docker-compose run --rm app rspec
+	docker-compose run --rm --service-ports app rspec
+parallelspecs:
+	sh ./docker/parallel-specs.sh
