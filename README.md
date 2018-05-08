@@ -1,24 +1,22 @@
-# README
+This is a sample docker rails app to demonstrate how we can run our specs across multiple containers.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Get Started
+     make setup # build docker image, sets up databases
+     make server # starts container rails server
+     make rspec # run all specs in a single container
+     make parallelspecs # invokes parallel test script; ./docker/parallel-specs.sh; fires multiples containers to runs tests listed in ./docker/parallel-specs.tsv
 
-Things you may want to cover:
+More commands in `./makefile`
+    
+### How does this work?
 
-* Ruby version
+The script in `./bin/parallel` is a shell tool for executing jobs in parallel. 
 
-* System dependencies
+`./docker/parallel-specs.sh` invokes `./docker/docker-spec-run.sh` alsong with params from the rows listed in `./docker/parallel-specs.tsv` with number of jobs defined by -j.
 
-* Configuration
+In our case, we have 4 rows in `./docker/parallel-specs.tsv` so we would like to have `-j4` that will fire 4 containers.
 
-* Database creation
+`./docker/docker-spec-run.sh` invokes actual `docker-compose run` command to start and run the spec, indirectly through `./docker/spec-runner.sh`.
 
-* Database initialization
+Through the process, we have to make sure of two things: make sure container names does not conflict and generate a new database for each container so that test run data won't collide. For this purpose, we have some code to build container name in `./docker/docker-spec-run.sh` and code to create a new db from existing test db template and use that for rspec run in `./docker/spec-runner.sh`.
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
